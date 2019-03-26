@@ -1,0 +1,78 @@
+@import "../../../../../style/vars";
+
+.timeline-wrapper {
+  position: relative;
+  top: -5%;
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .modules-builder-wrapper {
+    overflow-x: auto;
+    position: relative;
+    margin-top: -15px;
+
+    @media screen and (max-width: $break-tablet) {
+      .secBar {
+        display: none;
+      }
+    }
+
+    .bar-preview {
+      position: absolute;
+      z-index: 10;
+      height: 100%;
+      width: 2px;
+      background: $red;
+    }
+
+    .secBar {
+      position: absolute;
+      z-index: 1;
+      top: 6px;
+      height: 93%;
+      width: 2px;
+      background: $gray;
+
+      span {
+        position: absolute;
+        left: -8px;
+        top: -3%;
+      }
+    }
+
+    .modules-line-container{
+      height: 90px;
+      width: 98%;
+      margin:5px;
+
+    }
+
+    .modules-line {
+      display: flex;
+    }
+  }
+
+  .zoom-control {
+
+    @media screen and (max-width: $break-tablet) {
+      & {
+        display: none;
+      }
+    }
+
+    .zoom-value {
+      display: inline-block;
+      border-left: 2px solid black;
+      border-bottom: 2px solid black;
+      border-right: 2px solid black;
+      padding-bottom: 5px;
+      font-size: 1.2em;
+      text-align: center;
+    }
+  }
+}

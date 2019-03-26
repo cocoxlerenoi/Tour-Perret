@@ -1,0 +1,40 @@
+<div class="preview-wrapper">
+    <div class="canvas-container">
+        <div class="buttons-container" (click)="playerService.toggle()">
+            <button mat-fab class="play"
+                    *ngIf="playerService.isSuspended() && !scenarioService.isEmpty()">
+                <mat-icon>play_arrow</mat-icon>
+            </button>
+
+            <button mat-fab class="pause" *ngIf="!playerService.isSuspended()">
+                <mat-icon>pause</mat-icon>
+            </button>
+        </div>
+
+        <div class="canvas">
+            <canvas #canvasEtage3 class="etage3"></canvas>
+            <canvas #canvasEtage2 class="etage2"></canvas>
+            <canvas #canvasEtage1 class="etage1"></canvas>
+
+            <img src="assets/img/Tour_Perret.svg" class="tour" alt="Tour Perret">
+        </div>
+    </div>
+
+    <mat-progress-bar mode="determinate" value="{{ getProgressBarValue() }}"></mat-progress-bar>
+
+    <div class="player-infos">
+        <span style="color:white">{{ playerService.getTimer() | secondsToTime }}</span>
+
+        <button mat-icon-button (click)="playerService.toggle()" [disabled]="scenarioService.isEmpty()">
+            <mat-icon class="white-icon" *ngIf="playerService.isSuspended()">play_arrow</mat-icon>
+            <mat-icon class="white-icon" *ngIf="!playerService.isSuspended()">pause</mat-icon>
+        </button>
+
+        <button mat-icon-button class="stop" (click)="playerService.stop()"
+                [disabled]="playerService.getTimer() == 0">
+            <mat-icon class="white-icon">stop</mat-icon>
+        </button>
+
+        <span  style="color:white">-{{ (scenarioService.getScenario().dureeTotale - playerService.getTimer()) | secondsToTime }}</span>
+    </div>
+</div>

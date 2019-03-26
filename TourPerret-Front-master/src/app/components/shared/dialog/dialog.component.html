@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+
+<div mat-dialog-content>
+    {{ data.content }}
+
+    <br /><br />
+
+    <mat-form-field *ngIf="data.input">
+        <input matInput [(ngModel)]="data.inputModel" placeholder="{{ data.input }}" required>
+    </mat-form-field>
+
+    <mat-slide-toggle [(ngModel)]="data.toggleModel" color="primary" *ngIf="data.toggleLabel">
+        {{ data.toggleLabel }}
+    </mat-slide-toggle>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close="" *ngIf="data.action">
+        {{ data.cancel }}
+    </button>
+
+    <button mat-button
+            (click)="close()"
+            color="primary"
+            [disabled]="data.input && data.inputModel.length == 0">
+        <span *ngIf="data.action">{{ data.ok }}</span>
+        <span *ngIf="!data.action">Ok</span>
+    </button>
+</div>

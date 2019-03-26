@@ -1,0 +1,143 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+@import "vars";
+
+html {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  /*
+    All of that to remove the refresh action when scroll-down on touchscreen
+   */
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: -1px;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+
+  font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+
+}
+
+/*.layoutBackgroundImageFromFolder{
+    background-image: url('../assets/img/fond.jpg');
+    background-repeat: no-repeat;
+    height: 60;
+    margin: 15;
+} */
+
+.space {
+  flex: 1 1 auto;
+}
+
+
+ul {
+  list-style-type: none;
+
+  padding: 0;
+}
+
+mat-card {
+  margin: 20px;
+
+  &.has-modules {
+    padding: 0 !important;
+    margin: 10px 5px;
+
+    display: inline-flex !important;
+    align-items: center;
+
+    @media screen and (max-width: $break-tablet) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    mat-toolbar {
+      flex: 0;
+      align-self: stretch;
+
+      @media screen and (min-width: $break-tablet) {
+        .mat-toolbar-layout, .mat-toolbar-row {
+          height: 100%;
+        }
+      }
+    }
+
+    & > div {
+      align-items: center;
+      margin: 10px !important;
+
+      min-height: $moduleHeight;
+
+      @media screen and (max-width: $break-tablet), screen and (max-height: $break-smallHeight) {
+        & {
+          min-height: $moduleHeightResponsive;
+        }
+      }
+    }
+  }
+}
+
+.input-color {
+  cursor: pointer;
+}
+
+.ngx-contextmenu {
+  ul {
+    list-style-type: none;
+
+    a {
+      color: inherit;
+    }
+  }
+}
+
+.background-text {
+  color: $text;
+  background-color: $backgroundText;
+  padding: 4px;
+  border-radius: 5px;
+
+  &.mat-icon {
+    padding: 0;
+    border-radius: 0;
+  }
+}
+
+.color-picker {
+  top: 0 !important;
+  left: 0 !important;
+  position: relative !important;
+
+  .selected-color {
+    border: 1px solid black;
+  }
+
+  .saturation-lightness {
+    touch-action: none;
+  }
+
+  .rgba-text {
+    display: block;
+  }
+
+  .type-policy,
+  .hex-text {
+    display: none;
+  }
+}
+
+button.active {
+  background: #a9a9a9;
+  color: black;
+}
+
+.active {
+  font-weight: bold;
+}

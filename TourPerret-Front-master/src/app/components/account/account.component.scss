@@ -1,0 +1,13 @@
+.app {
+  height: 100%;
+  overflow: auto;
+
+  .content-container {
+    display: flex;
+    justify-content: center;
+
+    div {
+      width: 35%;
+    }
+  }
+}

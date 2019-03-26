@@ -1,0 +1,54 @@
+<div class="app">
+    <mat-toolbar color="primary">
+        <button mat-icon-button routerLink="/editeur">
+            <mat-icon>navigate_before</mat-icon>
+        </button>
+
+        <h1>Envoyer un scénario</h1>
+    </mat-toolbar>
+
+    <div class="content-container">
+        <div class="choose-date">
+            <mat-card>
+                <h2>
+                    Choisissez une date
+                </h2>
+
+                <my-calendar
+                        [min]="minDate" [max]="maxDate"
+                        (onDateClicked)="dateChanged($event)">
+                </my-calendar>
+            </mat-card>
+
+            <my-scenario-infos [saveReminder]="false"></my-scenario-infos>
+        </div>
+
+        <div class="choose-hours">
+            <mat-card>
+                <h2>
+                    Choisissez une heure
+                </h2>
+
+                <mat-spinner *ngIf="hours.length == 0"></mat-spinner>
+
+                <mat-list class="hours">
+                    <mat-list-item *ngFor="let hourI of nbOfHours">
+                        <button mat-raised-button (click)="hourSelected = hourI" [class.active]="hourSelected == hourI">
+                            {{ hourI }}h
+                        </button>
+                    </mat-list-item>
+                </mat-list>
+
+                <div class="minutes" *ngFor="let hourI of nbOfHours">
+                    <mat-list *ngIf="hourSelected == hourI">
+                        <mat-list-item *ngFor="let hour of hours[hourI]">
+                            <button mat-button mat-line (click)="send(hour)">
+                                {{ hour | date:'HH' }}h<strong>{{ hour | date:'mm' }}</strong>
+                            </button>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

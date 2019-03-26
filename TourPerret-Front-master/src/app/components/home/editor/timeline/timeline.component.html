@@ -1,0 +1,88 @@
+<div class="timeline-wrapper">
+    <div class="toolbar">
+        <h3>Ligne de temps</h3>
+
+        <div class="zoom-control">
+            <span matTooltip="Représentation d'une seconde">
+                <div [style.width.px]="mainService.getWidth(1000)" class="zoom-value">1s</div>
+            </span>
+
+            <span matTooltip="Dézoomer">
+                <button mat-icon-button color="primary"
+                        [disabled]="mainService.zoom == maxZoom"
+                        (click)="zoomMoins()">
+                    <mat-icon>zoom_out</mat-icon>
+                </button>
+            </span>
+
+            <span matTooltip="Zoomer">
+                <button mat-icon-button color="primary"
+                        (click)="zoomPlus()"
+                        [disabled]="mainService.zoom == minZoom">
+                    <mat-icon>zoom_in</mat-icon>
+                </button>
+            </span>
+        </div>
+    </div>
+
+  <!--  <span *ngIf="scenario.isEmpty()">
+        Glisser ou cliquer sur <mat-icon>add</mat-icon> d'un effet depuis la liste d'effet pour en ajouter
+    </span> -->
+
+    <div class="modules-builder-wrapper">
+
+      <!--   <my-timeline-music>
+        </my-timeline-music>-->
+
+        <div class="secBar"
+             *ngFor="let secWidth of secBar; let sec = index"
+             [style.left.px]="getBarPosition(secWidth)">
+            <span>{{ secBarChoosen * (sec + 1) }}s</span>
+        </div>
+
+        <div #barPreview class="bar-preview" [hidden]="playerService.getTimer() == 0"></div>
+
+        <mat-card *ngFor="let etage of scenario.scenes; let etageI = index"
+                 class="modules-line-container has-modules"
+                 [contextMenu]="contextMenuTimeline"
+                 [contextMenuSubject]="etageI">
+
+            <mat-toolbar>
+                Étage {{ (3 - etageI) }}
+            </mat-toolbar>
+
+            <div class="modules-line"
+                 [dragula]="'drag-module'"
+                 [dragulaModel]="etage.modules"
+                 [style.width.px]="mainService.getSizeLine()">
+                <my-module *ngFor="let module of etage.modules" [module]="module"></my-module>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<context-menu #contextMenuTimeline>
+    <ng-template contextMenuItem (execute)="copyLine($event.item)">
+        <button mat-raised-button>
+            Copier
+        </button>
+    </ng-template>
+
+    <ng-template contextMenuItem [visible]="mainService.hasModuleSaved()" (execute)="paste($event.item)">
+        <button mat-raised-button>
+            Coller un effet
+        </button>
+    </ng-template>
+
+    <ng-template contextMenuItem [visible]="mainService.hasEtageSaved()" (execute)="pasteLine($event.item)">
+        <button mat-raised-button>
+            Coller un étage
+        </button>
+    </ng-template>
+
+    <ng-template contextMenuItem (execute)="cleanLine($event.item)">
+        <button mat-raised-button>
+            Vider
+        </button>
+    </ng-template>
+</context-menu>

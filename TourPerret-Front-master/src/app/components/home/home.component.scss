@@ -1,0 +1,141 @@
+@import "../../../style/vars";
+
+.app {
+    height: 100%;
+
+    body{
+        display: flex;
+
+        margin : 0px;
+        position: absolute;
+
+      //    top: -20px;
+        //height: 832px;
+        z-index: -10;
+    }
+
+
+    mat-toolbar {
+        display: flex;
+        justify-content: center;
+
+        mat-slide-toggle {
+            margin: 18px;
+        }
+        mat-radio-button{
+          margin: 10px;
+        }
+        .slides{
+            font-size: 15px;
+        }
+        .protocolCom{
+            font-size: 15px;
+        }
+
+
+        @media screen and (min-width: $break-smartphone) {
+            .menu-hamburger {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: $break-smartphone) {
+            button, mat-radio-button, mat-slide-toggle {
+                display: none;
+            }
+
+            .menu-hamburger {
+                display: inherit;
+            }
+        }
+    }
+
+    .content-container {
+
+        @media screen and (min-width: $break-tablet + 1) {
+            display: flex;
+            flex-direction: column;
+        }
+
+        padding: 0;
+        //padding: 0 20px;
+        .content-editor-container {
+            display: flex;
+            background: url('../../../assets/img/fondMod.png');
+            background-size: cover;
+            background-position-x: left;
+            background-position-y: bottom;
+            background-repeat: no-repeat;
+
+
+            @media screen and (max-width: $break-tablet) {
+                flex-direction: column;
+            }
+
+
+
+
+            my-preview {
+                //width: 100%;
+                flex: 0 0 30%;
+                position: relative;
+
+                @media screen and (min-width: $break-tablet) {
+                    padding-right: 20px;
+                }
+            }
+
+            my-editor {
+                //flex: 1 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+
+
+
+        }
+
+        .content-infos-container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 20px;
+            @media screen and (min-width: $break-tablet) {
+                & {
+                    .help-container {
+                        flex: 1;
+                    }
+
+                    .scenario-infos-container {
+                      flex: 1;
+
+                        order: 1;
+                    }
+
+                    .about-container{
+                        flex: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    mat-sidenav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 360px;
+
+        mat-toolbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-bottom: 0px;
+        }
+
+        my-toolbox {
+            width: 100%;
+        }
+    }
+}

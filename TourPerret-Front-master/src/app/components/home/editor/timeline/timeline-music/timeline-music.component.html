@@ -1,0 +1,23 @@
+<div class="buttons">
+     <button mat-button (click)="saveFile()" [disabled]="isEmpty()">Exporter mes repères audios</button>
+     <button mat-button (click)="openFileMarqueursInput.click()">Importer mes repères audios</button>
+     <input #openFileMarqueursInput type='file' style="display: none;" accept='text/plain' (change)='openFileMarqueurs($event)'>
+
+     <button mat-button *ngIf="audioFileUrl == ''" (click)="openFileAudioInput.click()">Ajouter un fichier audio</button>
+     <button mat-button *ngIf="audioFileUrl != ''" (click)="openFileAudio()">Enlever le fichier : {{ openFileAudioInput.files[0].name }}</button>
+     <input #openFileAudioInput type='file' style="display: none;" accept='audio/*' (change)='openFileAudio($event)'>
+     <audio #audioPlayer></audio>
+</div>
+
+<div #markersContainer class="markers" (mousemove)="onMousemove($event)">
+     <!-- Barre affichée lors du deplacement de la souris -->
+     <div *ngIf="markerMovingPos > 0" class="marker move" [style.left.px]="markerMovingPos" (click)="addMarker($event)"></div>
+
+     <!-- Barres enregistrées -->
+     <div class="marker saved"
+          *ngFor="let marker of markers"
+          [style.left.px]="mainService.getWidth(marker.time)"
+          matTooltip="{{ limit6Decimal(marker.time / 1000) + 's ' + marker.name }}"
+          (click)="openDialog(marker)">
+     </div>
+</div>

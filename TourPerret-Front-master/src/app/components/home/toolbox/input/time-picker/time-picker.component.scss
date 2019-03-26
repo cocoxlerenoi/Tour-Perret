@@ -1,0 +1,9 @@
+.time-picker-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  & > * {
+    flex: 0 0 20%;
+  }
+}

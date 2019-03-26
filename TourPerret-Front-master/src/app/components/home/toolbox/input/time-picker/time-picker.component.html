@@ -1,0 +1,19 @@
+<div class="time-picker-container">
+    <div class="picker">
+        <mat-select [(ngModel)]="seconds" (ngModelChange)="convertToMillis()">
+            <mat-option *ngFor="let i of getNumberSeconds()" [value]="i">
+                {{ i }}
+            </mat-option>
+        </mat-select>
+        <span>secondes</span>
+    </div>
+
+    <div class="picker">
+        <mat-select [(ngModel)]="milliseconds" (ngModelChange)="convertToMillis()">
+            <mat-option *ngFor="let i of getNumberMilliseconds()" [value]="i">
+                {{ i }}
+            </mat-option>
+        </mat-select>
+        <span>millisecondes</span>
+    </div>
+</div>

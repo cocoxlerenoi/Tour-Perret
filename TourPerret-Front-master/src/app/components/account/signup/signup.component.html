@@ -1,0 +1,27 @@
+<mat-card>
+    <h2>Inscription</h2>
+
+    <form (ngSubmit)="inscription()" #signupForm="ngForm">
+        <mat-form-field>
+            <input mdInput placeholder="Adresse mail" name="mail" type="email" required [(ngModel)]="user.mail" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <input mdInput placeholder="Mot de passe" name="password" type="password" required [(ngModel)]="user.password" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <input mdInput placeholder="Nom" name="nom" required [(ngModel)]="user.nom" />
+        </mat-form-field>
+
+        <mat-select name="type" placeholder="Type de compte" floatPlaceholder="always" required [(ngModel)]="user.type">
+            <mat-option [value]="'base'" selected>Base</mat-option>
+            <mat-option [value]="'special'">Spécial</mat-option>
+            <mat-option [value]="'super-administrateur'">Super-administrateur</mat-option>
+        </mat-select>
+
+        <button mat-raised-button color="primary" [disabled]="!signupForm.form.valid">
+            S'inscrire
+        </button>
+    </form>
+</mat-card>

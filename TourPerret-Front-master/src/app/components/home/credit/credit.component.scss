@@ -1,0 +1,32 @@
+@import "../../../../style/vars";
+
+.creditIcon {
+  text-align: center;
+
+  .IUTIcon {
+    margin: 0px 38px 10px;
+    max-height: 85vh;
+
+    @media screen and (max-width: $break-tablet), screen and (max-height: $break-smallHeight) {
+      max-height: 82vh;
+    }
+  }
+
+  .GreIcon {
+    margin: 0px 40px 10px;
+    max-height: 85vh;
+
+    @media screen and (max-width: $break-tablet), screen and (max-height: $break-smallHeight) {
+      max-height: 82vh;
+      }
+    }
+
+  .polyIcon {
+    margin: 0px 40px 10px;
+    max-height: 85vh;
+
+    @media screen and (max-width: $break-tablet), screen and (max-height: $break-smallHeight) {
+         max-height: 82vh;
+       }
+    }
+}

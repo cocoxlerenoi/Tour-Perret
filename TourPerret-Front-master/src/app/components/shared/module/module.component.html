@@ -1,0 +1,99 @@
+<!--<div class="svg-content">
+<svg width="0" height="0"><defs><clipPath id="claclou">  <path d="M129.88658634 30.85947647c-3.81328657-.00091975-7.36107176 1.05985944-10.38367928 2.90273334-1.1371185.69349206-2.56119922.7189385-3.72223124.06622205-1.16103202-.65271644-1.8765981-1.88150343-1.8765981-3.21360908V6.65286333c0-3.68728071-3.0992534-6.65286368-6.78745387-6.65286368H6.74913093C3.0603173-3.5e-7.00030658 2.96558262.00030658 6.65286333v23.37301239c0 1.29715513.68245505 2.49865618 1.7962732 3.16332938 1.11381814.6646732 2.4965101.69594473 3.6373076.07879198 2.84111003-1.5365969 6.09365523-2.40913377 9.5503851-2.40821402 11.11028235-.00153292 20.11556184 9.00650583 20.11556184 20.11556185 0 11.10997577-9.0052795 20.11678818-20.11556185 20.11372235-3.45703645 0-6.70958165-.87284345-9.55069168-2.40882719-1.14202384-.61745933-2.5244092-.58864047-3.63945368.0766459C.67938921 69.42247892 0 70.62489972 0 71.922668v24.75968992c0 3.68912022 3.05970413 6.67861671 6.74882435 6.67861671h100.3677995c3.68728072 0 6.78745388-2.98949649 6.78745388-6.6786167V71.33372095c0-1.3311859.7186319-2.55874656 1.8784376-3.211463 1.15980567-.65210328 2.58327324-.6294161 3.72039173.0634628 3.02199435 1.8428739 6.5706993 2.9033465 10.3830661 2.9033465 11.11058895.00306583 20.11402894-9.00374658 20.11402894-20.11372235.00030659-11.10905602-9.00344-20.11740135-20.11341576-20.11586844z"/></clipPath></defs></svg>
+-->
+
+<div [contextMenu]="contextMenuModule"
+    class="module-container"
+    [style.width.px]="(module.editable ? mainService.getWidth(module.duree) : widthNotEditable)"
+    [style.background]="sanitizer.bypassSecurityTrustStyle(module.getBackground())"
+    [class.false-width]="playerService.getTimer() == 0">
+
+    <div class="open-toolbox" *ngIf="module.editable" (click)="openToolbox()" matTooltip="{{ module.nom }}"></div>
+
+    <img *ngIf="!module.editable" class="icon" alt="{{ module.nom }}"
+         src="{{ module.getIconPath() }}" matTooltip="{{ module.nom }}" />
+
+    <span class="duration background-text" *ngIf="module.editable">
+            {{ module.duree | secondsToTime }}
+    </span>
+
+    <button mat-icon-button
+        *ngIf="module.editable"
+        (click)="deleteModuleFromScenario()"
+        class="delete-component"
+        matTooltip="Supprimer du scénario">
+        <mat-icon class="background-text">clear</mat-icon>
+    </button>
+
+    <button mat-icon-button
+        *ngIf="!module.editable && !module.original"
+        (click)="deleteModuleFromFavorites()"
+        class="delete-component"
+        matTooltip="Supprimer des favoris">
+        <mat-icon class="background-text">clear</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            [matMenuTriggerFor]="menu"
+            class="add-etage"
+            *ngIf="!module.editable"
+            matTooltip="Ajouter au scénario">
+        <mat-icon class="background-text">add</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            class="clone"
+            (click)="cloneModuleToEtage()"
+            *ngIf="module.editable"
+            matTooltip="Cloner">
+        <mat-icon class="background-text">content_copy</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            class="add-favorite"
+            (click)="addModuleToFavorites()"
+            *ngIf="module.editable"
+            matTooltip="Ajouter aux favoris">
+        <mat-icon class="background-text">favorite_border</mat-icon>
+    </button>
+</div>
+
+<context-menu #contextMenuModule [disabled]="!module.editable">
+    <ng-template contextMenuItem (execute)="copy()">
+        <button mat-raised-button>
+            Copier
+        </button>
+    </ng-template>
+
+    <ng-template contextMenuItem (execute)="cut()">
+        <button mat-raised-button>
+            Couper
+        </button>
+    </ng-template>
+
+    <ng-template contextMenuItem [visible]="mainService.hasModuleSaved()" (execute)="paste()">
+        <button mat-raised-button>
+            Coller
+        </button>
+    </ng-template>
+
+    <ng-template contextMenuItem [visible]="mainService.hasEtageSaved()" (execute)="pasteLine()">
+        <button mat-raised-button>
+            Coller un étage
+        </button>
+    </ng-template>
+</context-menu>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="addModuleToEtage(0)">
+        Étage 3
+    </button>
+
+    <button mat-menu-item (click)="addModuleToEtage(1)">
+        Étage 2
+    </button>
+
+    <button mat-menu-item (click)="addModuleToEtage(2)">
+        Étage 1
+    </button>
+</mat-menu>

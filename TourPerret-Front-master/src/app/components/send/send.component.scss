@@ -1,0 +1,31 @@
+@import "../../../style/vars";
+
+.app {
+  height: 100%;
+  overflow: auto;
+
+  .content-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .choose-date {
+    }
+
+    .choose-hours {
+      flex: 1;
+
+      mat-spinner {
+        margin: auto;
+      }
+
+      .hours {
+        justify-content: space-around;
+      }
+
+      mat-list {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}

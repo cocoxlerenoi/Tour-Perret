@@ -1,0 +1,17 @@
+@import "../../../../../style/vars";
+
+.modules-list-container {
+
+  .title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .opened-container{
+    position: relative;
+    top: 17%;
+    margin-top: -25px;
+
+  }
+}

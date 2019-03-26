@@ -1,0 +1,93 @@
+@import "../../../../style/vars";
+
+.preview-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+
+  .canvas-container {
+    position: relative;
+    margin-top: 45px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .buttons-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      .pause {
+        display: none;
+      }
+
+      @media screen and (min-width: $break-tablet) {
+        &:hover .pause,
+        &:focus .pause {
+          display: inline;
+        }
+      }
+    }
+
+    .canvas {
+      position: relative;
+      right: 28px;
+      top: 5px;
+
+      .tour {
+        width: 180%;
+        height: 180%;
+        z-index: 2;
+        max-height: 85vh;
+
+        @media screen and (max-width: $break-tablet), screen and (max-height: $break-smallHeight) {
+          max-height: 82vh;
+        }
+      }
+
+      canvas {
+        background-color: grey;
+        position: absolute;
+        width: 142%;
+        left: 18%;
+        z-index: 0;
+
+        &.etage3 {
+          height: 14.6%;
+          top: 41.4%;
+        }
+
+        &.etage2 {
+          height: 14.8%;
+          top: 60.6%
+        }
+
+        &.etage1 {
+          height: 15.1%;
+          top: 80.5%
+        }
+      }
+    }
+  }
+
+  .player-infos {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.white-icon {
+  color: white;
+}

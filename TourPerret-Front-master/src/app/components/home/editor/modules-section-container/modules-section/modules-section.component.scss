@@ -1,0 +1,15 @@
+@import "../../../../../../style/vars";
+
+.modules-section {
+    //width: 98%;
+
+    .modules-wrapper {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        my-module {
+            margin: 0 5px;
+        }
+    }
+}

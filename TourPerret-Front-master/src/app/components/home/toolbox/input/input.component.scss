@@ -1,0 +1,54 @@
+@import "../../../../../style/vars";
+
+mat-card.input-display-container {
+  padding: 0;
+  margin: 20px 1px;
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    padding: 10px 0;
+
+    font-size: 20px;
+    text-align: center;
+
+    .input-switch-for {
+      margin: auto;
+
+      .input-container {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+    }
+
+    /*
+      When InputText
+     */
+    mat-form-field {
+      margin: 5px 0;
+
+      input {
+        font-size: 24px;
+      }
+    }
+
+    .color-input-container {
+      //margin: auto;
+
+      .color-input {
+        border: 1px solid $gray;
+        //text-align: center;
+        //margin: 10px 0;
+
+        &.active {
+          border: 10px solid $gray;
+        }
+      }
+    }
+  }
+}

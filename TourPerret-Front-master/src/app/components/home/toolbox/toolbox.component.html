@@ -1,0 +1,59 @@
+<div class="toolbox-display-container">
+    <mat-toolbar color="primary">
+        <h2 *ngIf="module != null">{{ module.nom }}</h2>
+
+        <span class="space"></span>
+
+        <button mat-button (click)="save()">
+            Valider
+        </button>
+    </mat-toolbar>
+
+    <div *ngIf="module != null" class="settings-module" (keyup.enter)="save()" >
+        <div class="preview-container">
+            <div *ngFor="let color of module.inputs['couleurs'].value; let colorI = index"
+                 style.background-color="{{ module.inputs['couleurs'].value[colorI] }}" class="zone"
+                 [style.width.%]="(module.constructor.name == 'ModuleClignotement' ?
+                 module.inputs['durees'].getPercentage(colorI) : 100)"
+                 (click)="selectedTab = colorI">
+
+                <span *ngIf="module.inputs['couleurs'].value.length > 1" class="background-text">
+                    {{ module.inputs['couleurs'].nom | capitalize | removePlural }} {{ colorI + 1 }} <br />
+                    <span *ngIf="module.constructor.name == 'ModuleClignotement'">
+                          {{ module.inputs['durees'].value[colorI] | secondsToTime }}
+                    </span>
+                </span>
+
+                <span *ngIf="module.inputs['couleurs'].value.length == 1" class="background-text">
+                    {{ module.inputs['couleurs'].nom | capitalize | removePlural }}
+                </span>
+            </div>
+        </div>
+
+        <div *ngFor="let input of module.inputs | mapToIterable">
+            <my-input *ngIf="module.inputs[input.key].global" [inputModel]="module.inputs[input.key]">
+            </my-input>
+        </div>
+
+        <div>
+            <mat-tab-group [selectedIndex]="selectedTab">
+                <mat-tab label="{{ module.inputs['couleurs'].nom | capitalize | removePlural }}
+                {{ (module.inputs['couleurs'].value.length > 1 ? colorI + 1 : '') }}"
+                        *ngFor="let color of module.inputs['couleurs'].value; let colorI = index; trackBy:trackByFn">
+
+                    <div class="toolbox-input" *ngFor="let input of module.inputs | mapToIterable">
+                        <my-input *ngIf="!module.inputs[input.key].global"
+                                  [inputModel]="module.inputs[input.key]" [inputNumber]="colorI">
+                        </my-input>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+
+        <div class="save-button-bottom">
+            <button mat-raised-button (click)="save()" color="primary">
+                Valider
+            </button>
+        </div>
+    </div>
+</div>

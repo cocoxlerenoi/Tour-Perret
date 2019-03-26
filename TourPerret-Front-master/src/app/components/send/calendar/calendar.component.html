@@ -1,0 +1,31 @@
+<div class="calendar-container">
+    <mat-toolbar>
+        <button mat-icon-button (click)="prev()" [disabled]="isDateEqual(start, min)">
+            <mat-icon>navigate_before</mat-icon>
+        </button>
+
+        <span class="space"></span>
+
+        <h3>{{ moisNom[(start | date:'M') - 1] }} {{ start | date:'y' }}</h3>
+
+        <span class="space"></span>
+
+        <button mat-icon-button (click)="next()" [disabled]="isDateEqual(start, max)">
+            <mat-icon>navigate_next</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <mat-grid-list cols="7">
+        <mat-grid-tile *ngFor="let name of joursNom">
+            {{ name }}
+        </mat-grid-tile>
+
+        <mat-grid-tile *ngFor="let day of days">
+            <button mat-button (click)="click(day)"
+                    [class.active]="isDateEqual(day, selected, true)"
+                    [disabled]="!isDateEqual(day, start) || (isDateInf(day, min) || isDateSup(day, max))">
+                {{ day | date:'d' }}
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

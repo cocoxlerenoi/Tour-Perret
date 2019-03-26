@@ -1,0 +1,19 @@
+<div class="modules-list-container">
+  <div class="title">
+    <h3>Liste des effets</h3>
+
+    <button class="toggle-button" mat-icon-button (click)="toggle()">
+      <mat-icon *ngIf="!opened">expand_more</mat-icon>
+      <mat-icon *ngIf="opened">expand_less</mat-icon>
+    </button>
+  </div>
+
+  <mat-tab-group *ngIf="opened" [@slideInOut] class="opened-container">
+    <mat-tab *ngFor="let section of sections; let sectionId = index"
+            label="{{ section.name }}">
+      <my-modules-section [sectionId]="sectionId"
+                          [sectionTitle]="section.name">
+      </my-modules-section>
+    </mat-tab>
+  </mat-tab-group>
+</div>

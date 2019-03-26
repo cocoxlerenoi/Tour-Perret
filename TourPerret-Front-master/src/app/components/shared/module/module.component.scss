@@ -1,0 +1,106 @@
+@import "../../../../style/vars";
+
+.module-container {
+  position: relative;
+  overflow: hidden;
+
+  touch-action: none;
+
+  height: $moduleHeight;
+
+  @media screen and (max-width: $break-tablet), screen and (max-height: $break-smallHeight) {
+    & {
+      height: $moduleHeightResponsive;
+    }
+  }
+
+  border: solid $gray 1px;
+  border-radius: 10px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: $break-tablet) {
+    &.false-width {
+      width: $moduleWidth !important;
+
+      .open-toolbox {
+        width: $moduleWidth !important;
+      }
+    }
+  }
+
+  .icon {
+    display: flex;
+    margin: 0 auto;
+    background-color: #2C3E50;
+    min-width: 33.5px;
+    max-width: 57.5px;
+    width: 100%;
+    height: 44px;
+    border-radius: 5px;
+    object-fit: contain;
+    padding: 0 5px;
+    box-sizing: border-box;
+    border: 1px solid $gray;
+  }
+
+  .open-toolbox {
+    position: absolute;
+    height: 100%;
+    width: 95%;
+
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .duration {
+    z-index: 1;
+  }
+
+  button {
+    color: $text;
+    z-index: 2;
+  }
+
+  .delete-component {
+    position: absolute;
+    top: -9px;
+    left: -9px;
+
+    &:hover mat-icon {
+      background: $red;
+    }
+  }
+
+  .clone {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+
+    &:hover mat-icon {
+      background: $green;
+    }
+  }
+
+  .add-etage {
+    position: absolute;
+    bottom: -9px;
+    right: -9px;
+
+    &:hover mat-icon {
+      background: $green;
+    }
+  }
+
+  .add-favorite {
+    position: absolute;
+    bottom: -9px;
+    left: -9px;
+
+    &:hover mat-icon {
+      background: $purple;
+    }
+  }
+}

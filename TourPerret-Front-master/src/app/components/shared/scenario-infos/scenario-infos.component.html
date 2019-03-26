@@ -1,0 +1,32 @@
+<mat-card class="scenario-infos">
+    <h2>Informations sur le scénario</h2>
+
+    <ul>
+        <li>
+            <span class="title">Titre :</span>
+            <span *ngIf="scenario.titre">{{ scenario.titre }}</span>
+            <span *ngIf="!scenario.titre"><i>Aucun titre</i></span>
+        </li>
+
+        <li>
+            <span class="title">Durée :</span>
+            <span>{{ scenario.dureeTotale | secondsToTime }}</span>
+        </li>
+
+        <li>
+            <span class="title">Dernier enregistrement :</span>
+            <span *ngIf="scenario.lastSaved > 0">{{ scenario.lastSaved | dateWithToday }}</span>
+            <span *ngIf="scenario.lastSaved == 0"><i>Jamais</i></span>
+        </li>
+
+        <li>
+            <span class="title">Dernier envoi :</span>
+            <span *ngIf="scenario.lastSended > 0">{{ scenario.lastSended | dateWithToday }}</span>
+            <span *ngIf="scenario.lastSended == 0"><i>Jamais</i></span>
+        </li>
+    </ul>
+
+    <!--<span *ngIf="saveReminder">
+        <b>Pensez à sauvegarder régulièrement votre travail !</b>
+    </span>-->
+</mat-card>

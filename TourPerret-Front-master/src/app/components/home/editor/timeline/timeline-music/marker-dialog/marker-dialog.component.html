@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Edit du repère</h1>
+<div mat-dialog-content>
+    <mat-form-field class="mat-form-field-infix">
+
+        <input matInput placeholder="Temps en milliseconde" [(ngModel)]="data.time">
+    </mat-form-field>
+
+    <mat-form-field class="mat-form-field-infix">
+        <input matInput placeholder="Nom du marqueur" [(ngModel)]="data.name">
+
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="deleteMarker(data)">Supprimer</button>
+    <button mat-button (click)="saveMarker()" cdkFocusInitial>Enregistrer</button>
+</div>

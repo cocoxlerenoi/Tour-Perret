@@ -1,0 +1,61 @@
+<mat-card class="input-display-container">
+    <mat-toolbar>
+        <h3>
+            <span *ngIf="inputNumber == -1 && inputModel.value.length > 1; else removePlural">
+                {{ inputModel.nom | capitalize }}
+            </span>
+
+            <ng-template #removePlural>
+                {{ inputModel.nom | capitalize | removePlural }}
+            </ng-template>
+        </h3>
+    </mat-toolbar>
+
+    <div class="input-switch-for"
+         [ngSwitch]="inputModel.type"
+         *ngFor="let value of inputModel.value; let inputI = index; trackBy:trackByFn">
+
+        <div *ngIf="inputNumber == -1 || inputI == inputNumber" class="input-container">
+            <span *ngIf="(inputNumber == -1 || inputI == inputNumber) && inputModel.descriptionsValues[inputI]">
+                {{ inputModel.descriptionsValues[inputI] | capitalize }}
+            </span>
+
+            <div class="input-number-container" *ngSwitchCase="'number'">
+                <my-time-picker *ngIf="inputModel.timePicker" [input]="inputModel" [inputI]="inputI"></my-time-picker>
+
+                <mat-select *ngIf="!inputModel.timePicker" [(ngModel)]="inputModel.value[inputI]">
+                    <mat-option *ngFor="let i of getNumbers()" [value]="i">
+                        {{ i }}
+                    </mat-option>
+                </mat-select>
+            </div>
+
+            <div class="color-input-container" *ngSwitchCase="'color'">
+                <!--<div    [(colorPicker)]="inputModel.value[inputI]"-->
+                        <!--[cpToggle]="true"-->
+                        <!--[cpDialogDisplay]="'inline'"-->
+                        <!--[cpOutputFormat]="'hex'"-->
+                        <!--[cpAlphaChannel]="'disabled'"-->
+                        <!--[cpPresetLabel]="'Couleurs de bases'"-->
+                        <!--[cpPresetColors]="['#000', '#00F', '#0F0', '#0FF', '#F00', '#F0F', '#FF0', '#FFF']"-->
+                        <!--class="color-inputModel"></div>-->
+                <mat-grid-list cols="3" rowHeight="50px">
+                    <mat-grid-tile *ngFor="let color of COLORS">
+                        <button class="color-input" mat-button
+                                (click)="inputModel.value[inputI] = color"
+                                [style.background]="color"
+                                [class.active]="inputModel.value[inputI] == color">
+                            &nbsp;
+                        </button>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+
+            <div class="input-text-container" *ngSwitchCase="'text'">
+                <mat-form-field>
+                    <input name="{{ inputModel.nom }}" [(ngModel)]="inputModel.value[inputI]" matInput>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</mat-card>

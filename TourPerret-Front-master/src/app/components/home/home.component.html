@@ -1,0 +1,163 @@
+<mat-sidenav-container class="app">
+<body></body>
+    <mat-toolbar color="primary">
+        <img src="../../../assets/img/Perret_Kids_Logo.png" alt="Perret Kids" width="160" height="160">
+
+        <span class="space"></span>
+
+        <div class="slides">
+            <mat-slide-toggle [(ngModel)]="playerService.loop">Lire en boucle</mat-slide-toggle>
+
+            <mat-slide-toggle [(ngModel)]="liveService.enable"
+                             (ngModelChange)="showLiveDialog($event)"
+                             *ngIf="mainService.isPi">
+                Connexion direct
+            </mat-slide-toggle>
+
+        </div>
+
+        <span class="space"></span>
+
+        <div class="protocolCom">
+        <!--  <label class="margin"> Communication </label> -->
+
+          <mat-radio-group (change)="CommunicationMode($event)" name="onoff" id="onoff">
+            <mat-radio-button value="1">USB</mat-radio-button>
+
+            <mat-radio-button value="0">Bluetooth</mat-radio-button>
+          </mat-radio-group>
+
+      <!--      <input type="radio" name="onoff" id="onoff" value="1" (change)="CommunicationMode($event)" />
+         USB
+       <input  type="radio" name="onoff" id="onoff" value="0" (change)="CommunicationMode($event)" />
+         Bluetooth
+-->
+        </div>
+
+        <span class="space"></span>
+
+        <div class="buttons">
+            <button class="menu-hamburger" mat-icon-button [matMenuTriggerFor]="menuNav">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <button mat-button (click)="newScenario()" [disabled]="scenarioService.isEmpty()">
+                Nouveau
+            </button>
+
+            <button mat-button [matMenuTriggerFor]="matMenuChoiceOpenSlot"
+                    [disabled]="!storageService.hasScenarioSaved()">
+                Ouvrir
+            </button>
+
+            <button mat-button [matMenuTriggerFor]="matMenuChoiceSaveSlot" [disabled]="scenarioService.isEmpty()">
+                Enregistrer
+            </button>
+
+            <input #openFileInput type='file' style="display: none;" accept='application/json'
+                   (change)='openScenarioFile($event)' multiple>
+
+            <button mat-button (click)="openFileInput.click();">
+                Ouvrir un/des fichiers
+            </button>
+
+            <button mat-button (click)="exportScenario()" [disabled]="scenarioService.isEmpty()">
+                Exporter en fichier
+            </button>
+
+            <button mat-button routerLink="/connexion" *ngIf="futur && !mainService.isPi">
+                Me connecter
+            </button>
+
+            <button mat-button (click)="sendScenario()" [disabled]="scenarioService.isEmpty()"
+                    *ngIf="!mainService.isPi">
+                Envoyer
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div class="content-container">
+        <div class="content-editor-container">
+            <my-preview></my-preview>
+            <my-editor></my-editor>
+
+        </div>
+
+        <div class="content-infos-container">
+            <div class="scenario-infos-container">
+                <my-help></my-help>
+                <my-scenario-infos></my-scenario-infos>
+            </div>
+            <div class="about-container">
+                <my-about></my-about>
+            </div>
+        </div>
+
+        <div class="credit-container">
+            <my-credit></my-credit>
+        </div>
+    </div>
+
+    <mat-sidenav #sidenav mode="over" (close)="saveModuleSideNav()" align="end"
+                (open-start)="cursorWaiting(true)" (open)="cursorWaiting(false)">
+        <my-toolbox></my-toolbox>
+    </mat-sidenav>
+</mat-sidenav-container>
+
+<mat-menu #menuNav="matMenu">
+    <button mat-menu-item (click)="newScenario()" [disabled]="scenarioService.isEmpty()">
+        Nouveau
+    </button>
+
+    <button mat-menu-item [matMenuTriggerFor]="matMenuChoiceOpenSlot"
+            [disabled]="!storageService.hasScenarioSaved()">
+        Ouvrir
+    </button>
+
+    <button mat-menu-item [matMenuTriggerFor]="matMenuChoiceSaveSlot" [disabled]="scenarioService.isEmpty()">
+        Enregistrer
+    </button>
+
+    <button mat-menu-item (click)="sendScenario()"
+            [disabled]="scenarioService.isEmpty()"
+            *ngIf="!mainService.isPi">
+        Envoyer
+    </button>
+
+    <mat-slide-toggle [(ngModel)]="playerService.loop">Lire en boucle</mat-slide-toggle>
+
+    <mat-slide-toggle [(ngModel)]="liveService.enable"
+                     (ngModelChange)="showLiveDialog($event)"
+                     *ngIf="mainService.isPi">
+        Connexion direct
+    </mat-slide-toggle>
+</mat-menu>
+
+<mat-menu #matMenuChoiceOpenSlot="matMenu">
+    <button mat-menu-item
+            (click)="openScenario(scenarioInfos.slot)"
+            *ngFor="let scenarioInfos of storageService.getInfosScenariosSaved()"
+            [disabled]="scenarioInfos.dureeTotale == 0">
+
+        <span *ngIf="scenarioInfos.dureeTotale > 0"
+              [class.active]="scenarioInfos.titre == scenarioService.getScenario().titre">
+            {{ scenarioInfos.titre }}
+        </span>
+
+        <span *ngIf="scenarioInfos.dureeTotale == 0">Emplacement vide</span>
+    </button>
+</mat-menu>
+
+<mat-menu #matMenuChoiceSaveSlot="matMenu">
+    <button mat-menu-item
+            (click)="saveScenario(scenarioInfos.slot)"
+            *ngFor="let scenarioInfos of storageService.getInfosScenariosSaved()">
+
+        <span *ngIf="scenarioInfos.dureeTotale > 0"
+              [class.active]="scenarioInfos.titre == scenarioService.getScenario().titre">
+            {{ scenarioInfos.titre }}
+        </span>
+
+        <span *ngIf="scenarioInfos.dureeTotale == 0">Emplacement vide</span>
+    </button>
+</mat-menu>

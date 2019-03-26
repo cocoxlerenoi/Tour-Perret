@@ -1,0 +1,17 @@
+<mat-card>
+    <h2>Connexion</h2>
+
+    <form (ngSubmit)="connection()" #loginForm="ngForm">
+        <mat-form-field>
+            <input mdInput placeholder="Adresse mail" name="mail" type="email" required [(ngModel)]="user.mail" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <input mdInput placeholder="Mot de passe" name="password" type="password" required [(ngModel)]="user.password" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">
+            Se connecter
+        </button>
+    </form>
+</mat-card>

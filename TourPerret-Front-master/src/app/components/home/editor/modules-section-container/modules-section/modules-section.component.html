@@ -1,0 +1,9 @@
+<mat-card class="modules-section has-modules">
+    <div [dragula]='"drag-module"' [dragulaOptions]="options" [dragulaModel]='modules'
+         class="modules-wrapper" id="section-{{ sectionId }}">
+
+        <span *ngIf="modules.length == 0">Aucun effet</span>
+
+        <my-module *ngFor="let module of modules; let i = index" [indexInSection]="i" [module]="module"></my-module>
+    </div>
+</mat-card>
