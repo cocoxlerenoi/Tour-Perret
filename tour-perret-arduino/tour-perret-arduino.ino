@@ -68,7 +68,7 @@ int lecture_BT()
   // Reception de caractères correspondant à un scenario de la forme : [[111,222,333,4444],[111,222,...
   while (((c >= '0') && (c  <= '9')) || (c == '[') || (c == ']') || (c == ','))
   {
-    c = Serial.read(); //Reception des données en Bluetooth
+    c = SerialBT.read(); //Reception des données en Bluetooth
     
     if(((c >= '0') && (c <= '9'))|| (c == ','))
     {
@@ -136,29 +136,29 @@ void play(int nb_seq)
   Serial.print("\n Affiche trame après parser : \n");
   for (int l = 0; l <= nb_seq; l++)
   {
-    for (int i = 0; i < 20; i++ ) { //  boucle pour définir les 12  premières led du 1er étage
-     strip.setPixelColor(i, (int)(coul_et[0][l] % 256) , (int)(coul_et[0][l] % 65536) / 256, (int)(coul_et[0][l] / 65536));
-          strip.show(); // on affiche
-    strip.setBrightness(100); //Luminosité
-    }
-    for (int i = 20; i < 40; i++ ) { //  boucle pour définir les 12 suivantes du 2ème étage
-      strip.setPixelColor(i, (int)(coul_et[1][l] % 256) , (int)(coul_et[1][l] % 65536) / 256, (int)(coul_et[1][l] / 65536));
-          strip.show(); // on affiche
-    strip.setBrightness(100); //Luminosité
-    }
-    for (int i = 40; i < 60; i++ ) { //  boucle pour définir les 12 leds suivantes du 3ème étage
-      strip.setPixelColor(i, (int)(coul_et[2][l] % 256) , (int)(coul_et[2][l] % 65536) / 256, (int)(coul_et[2][l] / 65536));
-          strip.show(); // on affiche
-    strip.setBrightness(100); //Luminosité
-    }
-    delay(coul_et[3][l]);
-
-//    for(int j=0;j < 4;j++)
-//    {
-//      Serial.print(coul_et[j][l]);     
-//       Serial.print('\t');
+//    for (int i = 0; i < 20; i++ ) { //  boucle pour définir les 12  premières led du 1er étage
+//     strip.setPixelColor(i, (int)(coul_et[0][l] % 256) , (int)(coul_et[0][l] % 65536) / 256, (int)(coul_et[0][l] / 65536));
+//          strip.show(); // on affiche
+//    strip.setBrightness(100); //Luminosité
 //    }
-//    Serial.print('\n');
+//    for (int i = 20; i < 40; i++ ) { //  boucle pour définir les 12 suivantes du 2ème étage
+//      strip.setPixelColor(i, (int)(coul_et[1][l] % 256) , (int)(coul_et[1][l] % 65536) / 256, (int)(coul_et[1][l] / 65536));
+//          strip.show(); // on affiche
+//    strip.setBrightness(100); //Luminosité
+//    }
+//    for (int i = 40; i < 60; i++ ) { //  boucle pour définir les 12 leds suivantes du 3ème étage
+//      strip.setPixelColor(i, (int)(coul_et[2][l] % 256) , (int)(coul_et[2][l] % 65536) / 256, (int)(coul_et[2][l] / 65536));
+//          strip.show(); // on affiche
+//    strip.setBrightness(100); //Luminosité
+//    }
+//    delay(coul_et[3][l]);
+
+    for(int j=0;j < 4;j++)
+    {
+      Serial.print(coul_et[j][l]);     
+       Serial.print('\t');
+    }
+    Serial.print('\n');
   }
   
 }
@@ -171,7 +171,7 @@ void setup()
   pinMode(ledPin, OUTPUT);
  
   //Ouverture des ports Séries
- // Serial.begin("ESP32");
+  SerialBT.begin("ESP32");
   Serial.begin(115200); //Définition du baudrate (Mode UART) doit être identique coté serveur Node (voir TourPerret-Node-master/live.js)
 
   
@@ -186,7 +186,7 @@ void setup()
 
 void loop()
 {
-   int mode_comm = 0;
+   int mode_comm = 1;
   int i=0;
   int nb_sequ = 0;
   char c1;
@@ -215,7 +215,7 @@ void loop()
   while (mode_comm == 1)
   {  
     digitalWrite(ledPin, HIGH); //Mode Bluetooth : Led Allumer
-    c1=Serial.read();
+    c1=SerialBT.read();
    if(c1=='[') //Condition de démarrage du décodage des données reçues
    {
         taille_scenar=lecture_BT();
